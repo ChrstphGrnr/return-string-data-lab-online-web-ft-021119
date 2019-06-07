@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 
     def index 
-        @products = Prodcuts.all 
+        @products = Product.all 
     end
 
     def show 
@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     end
 
     def new
-        @product = Prodcut.new
+        @product = Product.new
     end
 
     def create 
@@ -24,8 +24,11 @@ class ProductsController < ApplicationController
     end
 
     def inventory
+        # binding.pry
         product = Product.find_by_id(params[:id])
-        product.inventory > 0 ? true : false
+        result = nil
+        product.inventory.nil? || product.inventory < 0 ? result = "false" : result = "true"
+        render plain: result
     end
 
     private 

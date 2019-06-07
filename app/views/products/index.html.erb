@@ -2,5 +2,23 @@
     <%= render partial: "product", locals: {product: product} %>
 <% end %>
 
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    $(".js-more").on('click', function() {
+      var id = $(this).data("id");
+      $.get("/products/" + id + "/description", function(data) {
+        $("#body-" + id).text(data);
+      });
+      var inventory = $.get("/products/" + id + "inventory");
+      if (inventory === "true") {
+          return "Available"
+      }
+      else {
+        return "Out of Stock"
+      };
+      });
+    });
+  });
+</script>
 
 
