@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
     end
 
     def show 
-        @product = Product.find_by_id(parmas[:id])
+        @product = Product.find_by(id: params[:id])
     end
 
     def new
@@ -19,16 +19,14 @@ class ProductsController < ApplicationController
     end
 
     def description
-        product = Product.find_by_id(params[:id])
+        product = Product.find_by(id: params[:id])
         render plain: product.description
     end
 
     def inventory
         # binding.pry
-        product = Product.find_by_id(params[:id])
-        result = nil
-        product.inventory.nil? || product.inventory < 0 ? result = "false" : result = "true"
-        render plain: result
+        product = Product.find_by(id: params[:id])
+        render plain: product.inventory > 0 ? true : false    
     end
 
     private 
